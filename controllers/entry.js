@@ -113,17 +113,17 @@ exports.update = [
       includeOptionals: true,
     })
 
-    const oldEntry = await prisma.entry.findUnique({
-      where: {
-        id: parseInt(req.params.id),
-      },
-    })
-
-    if (!oldEntry) {
-      return res.status(404).json({ message: 'Entry not found.' })
-    }
-
     if (errors.isEmpty()) {
+      const oldEntry = await prisma.entry.findUnique({
+        where: {
+          id: parseInt(req.params.id),
+        },
+      })
+
+      if (!oldEntry) {
+        return res.status(404).json({ message: 'Entry not found.' })
+      }
+
       const updatedEntry = await prisma.entry.update({
         where: {
           id: parseInt(req.params.id),
@@ -137,7 +137,7 @@ exports.update = [
         },
       })
 
-      res.json({ updatedEntry })
+      res.json(updatedEntry)
     } else {
       res.status(401).json(errors.array())
     }

@@ -103,13 +103,14 @@ describe('Entry API', () => {
     it('should return validation errors', async () => {
       const res = await request(app)
         .post('/entries')
-        .send({ type: '', amount: -100, category: '' })
+        .send({ type: '', amount: -100, category: '', date: '' })
       expect(res.statusCode).toEqual(401)
       expect(res.body).toEqual(
         expect.arrayContaining([
           expect.objectContaining({ msg: 'Type must not be empty.' }),
           expect.objectContaining({ msg: 'Amount must be a positive number.' }),
           expect.objectContaining({ msg: 'Category must not be empty.' }),
+          expect.objectContaining({ msg: 'Date must not be empty.' }),
         ])
       )
     })
@@ -135,13 +136,11 @@ describe('Entry API', () => {
         date: new Date().toISOString(),
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-      }) // Mock the initial entry
+      })
       prisma.entry.update.mockResolvedValue(updatedEntry)
       const res = await request(app).put('/entries/1').send(updatedEntry)
       expect(res.statusCode).toEqual(200)
-      expect(res.body).toEqual({
-        updatedEntry: expect.objectContaining(updatedEntry),
-      })
+      expect(res.body).toEqual(updatedEntry)
     })
 
     it('should return 404 if entry not found', async () => {
@@ -155,6 +154,21 @@ describe('Entry API', () => {
       })
       expect(res.statusCode).toEqual(404)
       expect(res.body).toEqual({ message: 'Entry not found.' })
+    })
+
+    it('should return validation errors', async () => {
+      const res = await request(app)
+        .put('/entries/1')
+        .send({ type: '', amount: -100, category: '', date: '' })
+      expect(res.statusCode).toEqual(401)
+      expect(res.body).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ msg: 'Type must not be empty.' }),
+          expect.objectContaining({ msg: 'Amount must be a positive number.' }),
+          expect.objectContaining({ msg: 'Category must not be empty.' }),
+          expect.objectContaining({ msg: 'Date must not be empty.' }),
+        ])
+      )
     })
   })
 
