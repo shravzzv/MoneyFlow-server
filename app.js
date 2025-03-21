@@ -8,6 +8,7 @@ require('dotenv').config()
 
 const indexRouter = require('./routes/index')
 const entryRouter = require('./routes/entry')
+const aiRouter = require('./routes/ai')
 
 const app = express()
 
@@ -21,5 +22,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
 app.use('/entries', entryRouter)
+app.use('/ai', aiRouter)
 
 module.exports = app
