@@ -8,12 +8,30 @@ This repository contains the backend API for the MoneyFlow financial dashboard a
 
 ## Features
 
-- **User Authentication**: Secure user authentication using JWT tokens.
 - **Data Management**: Efficient handling of user data with Postgres and Prisma.
 - **API Endpoints**: RESTful API endpoints for various operations.
 - **Error Handling**: Comprehensive error handling and logging.
 - **Scalability**: Designed to scale with your application's needs.
 - **Documentation**: Well-documented code and API endpoints.
+
+## API Endpoints
+
+### Index
+
+- `GET /`: Retrieve a welcome message to the server.
+
+### Entry Endpoints
+
+- `GET /entries`: Retrieve all entries.
+- `GET /entries/:id`: Retrieve an entry by ID.
+- `POST /entries`: Create a new entry.
+- `PUT /entries/:id`: Update a entry by ID.
+- `DELETE /entries/:id`: Delete a entry by ID.
+
+### AI Endpoints
+
+- `GET /ai`: Retrieve all of the chat history with ai.
+- `POST /ai`: Chat with the AI.
 
 ## Technologies Used
 
