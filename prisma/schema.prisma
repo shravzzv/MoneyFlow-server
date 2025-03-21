@@ -18,6 +18,13 @@ model Entry {
   updatedAt DateTime  @updatedAt
 }
 
+model ChatHistory {
+  id        Int      @id @default(autoincrement())
+  message   String
+  isUser    Boolean
+  timestamp DateTime @default(now())
+}
+
 enum EntryType {
   INCOME
   EXPENSE
